@@ -89,7 +89,6 @@ body {
     border-radius: 10px;
     overflow: hidden;
     transition: transform 0.3s ease;
-    background: rgba(0,0,0,0.8);
 }
 
 .movie-card:hover {
@@ -100,18 +99,15 @@ body {
     width: 100%;
     height: 300px;
     object-fit: cover;
-    display: block;
 }
 
 .movie-info {
-    position: relative;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
     background: rgba(0,0,0,0.8);
     padding: 1rem;
-}
-
-.movie-info h3 {
-    margin-bottom: 0.5rem;
-    font-size: 1.1rem;
 }
 
 .btn {
@@ -174,6 +170,7 @@ footer {
     display: flex;
     max-width: 600px;
     margin: 0 auto;
+    position: relative;
 }
 
 .search-input {
@@ -192,6 +189,40 @@ footer {
     padding: 0 1.5rem;
     border-radius: 0 5px 5px 0;
     cursor: pointer;
+}
+
+.search-results {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: rgba(0,0,0,0.95);
+    border: 1px solid var(--primary);
+    border-radius: 5px;
+    max-height: 300px;
+    overflow-y: auto;
+    display: none;
+    z-index: 1000;
+}
+
+.search-result-item {
+    padding: 0.8rem;
+    border-bottom: 1px solid rgba(138, 43, 226, 0.2);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.search-result-item:hover {
+    background: rgba(138, 43, 226, 0.2);
+}
+
+.search-result-item img {
+    width: 50px;
+    height: 70px;
+    object-fit: cover;
+    border-radius: 5px;
 }
 
 @media (max-width: 768px) {
@@ -235,6 +266,7 @@ footer {
     border-radius: 10px;
     overflow: hidden;
     transition: transform 0.3s ease;
+    cursor: pointer;
 }
 
 .featured-card:hover {
@@ -254,6 +286,12 @@ footer {
 .rating {
     color: gold;
     margin-top: 0.5rem;
+}
+
+.hashtags {
+    color: var(--primary);
+    font-size: 0.9rem;
+    margin: 5px 0;
 }
 
 .admin-trigger {
@@ -320,15 +358,19 @@ footer {
     cursor: pointer;
 }
 
-.hashtags {
-    color: #8A2BE2;
-    font-size: 0.8rem;
-    opacity: 0.8;
+.ad-container {
+    min-height: 300px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(138, 43, 226, 0.05);
+    border: 1px solid rgba(138, 43, 226, 0.2);
 }
 
-.movie-info h3 {
-    margin-bottom: 0.5rem;
-    font-size: 1.1rem;
+.ad-container iframe {
+    max-width: 100%;
+    border-radius: 8px;
+    overflow: hidden;
 }
 </style></head><body>
     <nav class="navbar">
@@ -369,6 +411,7 @@ footer {
                     <line x1="21" y1="21" x2="16.65" y2="16.65"/>
                 </svg>
             </button>
+            <div class="search-results"></div>
         </div>
     </div>
 
@@ -403,27 +446,30 @@ footer {
         <h2>Destacados de la Semana</h2>
         <div class="featured-grid">
             <div class="featured-card">
-                <img alt="poster de película de acción, escena épica" src="https://images.unsplash.com/photo-1533928298208-27ff66555d8d?auto=format&fit=crop&w=500&h=300" width="250" height="200">
+                <img alt="Solo Leveling - Portada de anime de acción y fantasía" src="https://www3.animeflv.net/uploads/animes/covers/3928.jpg" width="250" height="200">
                 <div class="featured-content">
-                    <h3>Exodus</h3>
-                    <p>Ciencia Ficción • 2023</p>
-                    <div class="rating">★★★★☆</div>
-                </div>
-            </div>
-            <div class="featured-card">
-                <img alt="poster de serie dramática, ambiente oscuro" src="https://images.unsplash.com/photo-1626814026160-2237a95fc5a0?auto=format&fit=crop&w=500&h=300" width="250" height="200">
-                <div class="featured-content">
-                    <h3>Dark Matter</h3>
-                    <p>Drama • 2023</p>
+                    <h3>Solo Leveling</h3>
+                    <p class="hashtags">#anime #manwha</p>
+                    <p>Serie anime • 2024</p>
                     <div class="rating">★★★★★</div>
                 </div>
             </div>
             <div class="featured-card">
-                <img alt="poster de anime, estilo artístico japonés" src="https://images.unsplash.com/photo-1578632767115-351597cf2477?auto=format&fit=crop&w=500&h=300" width="250" height="200">
+                <img alt="Love is Hard for Otaku - Portada de anime romántico" src="https://www3.animeflv.net/uploads/animes/covers/2952.jpg" width="250" height="200">
                 <div class="featured-content">
-                    <h3>Cyber Ninja</h3>
-                    <p>Anime • 2023</p>
+                    <h3>Love is Hard for Otaku</h3>
+                    <p class="hashtags">#anime</p>
+                    <p>Serie anime • 2023</p>
                     <div class="rating">★★★★☆</div>
+                </div>
+            </div>
+            <div class="featured-card">
+                <img alt="Hasta el último Hombre - Poster de película bélica" src="https://www.lahiguera.net/cinemania/pelicula/7020/hasta_el_ultimo_hombre-cartel-7198.jpg" width="250" height="200">
+                <div class="featured-content">
+                    <h3>Hasta el último Hombre</h3>
+                    <p class="hashtags">#guerra #soldado</p>
+                    <p>Guerra y Acción • 2016</p>
+                    <div class="rating">★★★★★</div>
                 </div>
             </div>
         </div>
@@ -433,35 +479,44 @@ footer {
         <h2>Tendencias</h2>
         <div class="trending-grid">
             <div class="movie-card">
-                <img alt="Record of Ragnarok anime poster, dramatic fantasy style" src="https://drive.google.com/file/d/10WnwcKvhJGFFF4Ph0OgId1VJ9ffLNiik/preview" width="200" height="300">
+                <img alt="poster de película de acción, tonos oscuros y dramáticos" src="https://images.unsplash.com/photo-1535016120720-40c646be5580?auto=format&fit=crop&w=400&h=600" width="200" height="300">
                 <div class="movie-info">
-                    <h3>Record of Ragnarok (T1)</h3>
-                    <p class="hashtags">#anime</p>
+                    <h3>Título 1</h3>
+                    <p>Acción • 2023</p>
                 </div>
             </div>
-            
             <div class="movie-card">
-                <img alt="Solo Leveling anime poster, action manga style" src="https://drive.google.com/file/d/1DOpLabAG-X3FBjiPruZvPbzQRfonLnWK/preview" width="200" height="300">
+                <img alt="poster de anime, colores vibrantes y estilo japonés" src="https://images.unsplash.com/photo-1578632767115-351597cf2477?auto=format&fit=crop&w=400&h=600" width="200" height="300">
                 <div class="movie-info">
-                    <h3>Solo Leveling</h3>
-                    <p class="hashtags">#anime #manwha</p>
+                    <h3>Título 2</h3>
+                    <p>Anime • 2023</p>
                 </div>
             </div>
-            
             <div class="movie-card">
-                <img alt="Love is Hard for Otaku anime poster, romantic comedy style" src="https://drive.google.com/file/d/1qpR7DrWP0Tfbgqd588jp6GTlI0VpqBT8/preview" width="200" height="300">
+                <img alt="poster de serie dramática, tonos suaves y atmosféricos" src="https://images.unsplash.com/photo-1536440136628-849c177e76a1?auto=format&fit=crop&w=400&h=600" width="200" height="300">
                 <div class="movie-info">
-                    <h3>Love is Hard for Otaku</h3>
-                    <p class="hashtags">#anime</p>
+                    <h3>Título 3</h3>
+                    <p>Serie • 2023</p>
                 </div>
             </div>
-            
             <div class="movie-card">
-                <img alt="Hasta el ultimo Hombre movie poster, war drama style" src="https://drive.google.com/file/d/1-3HBimaPKnZlwRv-sG7ZonJTx9WMtigP/preview" width="200" height="300">
+                <img alt="poster de documental, fotografía naturalista" src="https://images.unsplash.com/photo-1552083375-1447ce886485?auto=format&fit=crop&w=400&h=600" width="200" height="300">
                 <div class="movie-info">
-                    <h3>Hasta el ultimo Hombre</h3>
-                    <p class="hashtags">#guerra #soldado</p>
+                    <h3>Título 4</h3>
+                    <p>Documental • 2023</p>
                 </div>
+            </div>
+            <div class="movie-card ad-container">
+                <script type="text/javascript">
+                    atOptions = {
+                        'key' : '2d8bd2614f7cc9cc4316cc0829a3e263',
+                        'format' : 'iframe',
+                        'height' : 300,
+                        'width' : 160,
+                        'params' : {}
+                    };
+                </script>
+                <script type="text/javascript" src="//www.highperformanceformat.com/2d8bd2614f7cc9cc4316cc0829a3e263/invoke.js"></script>
             </div>
         </div>
     </section>
@@ -496,19 +551,68 @@ footer {
             };
         });
 
-        const searchInput = document.querySelector('.search-input');
-        const searchBtn = document.querySelector('.search-btn');
+        const movieDatabase = [
+            {
+                title: "Solo Leveling",
+                category: "Anime",
+                tags: ["anime", "manwha"],
+                image: "https://www3.animeflv.net/uploads/animes/covers/3928.jpg",
+                url: "https://solo-leveling-sandy.vercel.app"
+            },
+            {
+                title: "Love is Hard for Otaku",
+                category: "Anime",
+                tags: ["anime", "romance"],
+                image: "https://www3.animeflv.net/uploads/animes/covers/2952.jpg",
+                url: "https://love-is-hard-for-otaku.vercel.app"
+            },
+            {
+                title: "Hasta el último Hombre",
+                category: "Guerra y Acción",
+                tags: ["guerra", "soldado", "accion"],
+                image: "https://www.lahiguera.net/cinemania/pelicula/7020/hasta_el_ultimo_hombre-cartel-7198.jpg",
+                url: "https://hasta-el-ultimo-hombre.vercel.app"
+            }
+        ];
 
-        searchBtn.addEventListener('click', () => {
-            const searchTerm = searchInput.value.trim();
-            if (searchTerm) {
-                alert(`Buscando: ${searchTerm}`);
+        const searchInput = document.querySelector('.search-input');
+        const searchResults = document.querySelector('.search-results');
+
+        searchInput.addEventListener('input', (e) => {
+            const searchTerm = e.target.value.toLowerCase();
+            
+            if (searchTerm.length < 2) {
+                searchResults.style.display = 'none';
+                return;
+            }
+
+            const filteredMovies = movieDatabase.filter(movie => {
+                return movie.title.toLowerCase().includes(searchTerm) ||
+                       movie.category.toLowerCase().includes(searchTerm) ||
+                       movie.tags.some(tag => tag.includes(searchTerm));
+            });
+
+            if (filteredMovies.length > 0) {
+                searchResults.innerHTML = filteredMovies.map(movie => `
+                    <div class="search-result-item" onclick="window.location.href='${movie.url}'">
+                        <img src="${movie.image}" alt="${movie.title}">
+                        <div>
+                            <h4>${movie.title}</h4>
+                            <small>${movie.category}</small>
+                        </div>
+                    </div>
+                `).join('');
+                searchResults.style.display = 'block';
+            } else {
+                searchResults.innerHTML = '<div class="search-result-item">No se encontraron resultados</div>';
+                searchResults.style.display = 'block';
             }
         });
 
-        searchInput.addEventListener('keypress', (e) => {
-            if (e.key === 'Enter') {
-                searchBtn.click();
+        // Close search results when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!e.target.closest('.search-box')) {
+                searchResults.style.display = 'none';
             }
         });
 
@@ -535,8 +639,17 @@ footer {
         document.querySelectorAll('.featured-card').forEach(card => {
             card.addEventListener('click', () => {
                 const title = card.querySelector('h3').textContent;
-                const rating = card.querySelector('.rating').textContent;
-                alert(`${title}\nCalificación: ${rating}`);
+                switch(title) {
+                    case 'Solo Leveling':
+                        window.location.href = 'https://solo-leveling-sandy.vercel.app';
+                        break;
+                    case 'Love is Hard for Otaku':
+                        window.location.href = 'https://love-is-hard-for-otaku.vercel.app';
+                        break;
+                    case 'Hasta el último Hombre':
+                        window.location.href = 'https://hasta-el-ultimo-hombre.vercel.app';
+                        break;
+                }
             });
         });
 
