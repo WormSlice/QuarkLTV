@@ -1,0 +1,585 @@
+<html><head><base href="." /><meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" /><title>QuarkLTV - Tu Plataforma de Streaming</title><style>
+:root {
+    --primary: #8A2BE2;
+    --dark: #121212;
+    --light: #ffffff;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', sans-serif;
+}
+
+body {
+    background-color: var(--dark);
+    color: var(--light);
+}
+
+.navbar {
+    background-color: rgba(0,0,0,0.9);
+    padding: 1rem;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 1000;
+}
+
+.logo {
+    color: var(--primary);
+    font-size: 1.5rem;
+    font-weight: bold;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+}
+
+.logo svg {
+    margin-right: 10px;
+}
+
+.hero {
+    height: 80vh;
+    background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('https://images.unsplash.com/photo-1626814026160-2237a95fc5a0?auto=format&fit=crop&w=1920&q=80');
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 2rem;
+}
+
+.category-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+    padding: 2rem;
+    margin-top: 2rem;
+}
+
+.category-card {
+    background: rgba(138, 43, 226, 0.1);
+    border: 1px solid var(--primary);
+    border-radius: 10px;
+    padding: 1rem;
+    text-align: center;
+    transition: transform 0.3s ease;
+}
+
+.category-card:hover {
+    transform: translateY(-5px);
+    background: rgba(138, 43, 226, 0.2);
+}
+
+.trending {
+    padding: 2rem;
+}
+
+.trending-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+.movie-card {
+    position: relative;
+    border-radius: 10px;
+    overflow: hidden;
+    transition: transform 0.3s ease;
+    background: rgba(0,0,0,0.8);
+}
+
+.movie-card:hover {
+    transform: scale(1.05);
+}
+
+.movie-card img {
+    width: 100%;
+    height: 300px;
+    object-fit: cover;
+    display: block;
+}
+
+.movie-info {
+    position: relative;
+    background: rgba(0,0,0,0.8);
+    padding: 1rem;
+}
+
+.movie-info h3 {
+    margin-bottom: 0.5rem;
+    font-size: 1.1rem;
+}
+
+.btn {
+    background-color: var(--primary);
+    color: var(--light);
+    padding: 0.8rem 2rem;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+}
+
+.btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(120deg, transparent, rgba(255,255,255,0.2), transparent);
+    transition: 0.5s;
+    z-index: -1;
+}
+
+.btn:hover {
+    background-color: #6B1FB1;
+}
+
+.btn:hover::before {
+    left: 100%;
+}
+
+footer {
+    background-color: rgba(0,0,0,0.9);
+    padding: 2rem;
+    text-align: center;
+    margin-top: 2rem;
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+}
+
+.pulse {
+    animation: pulse 2s infinite;
+}
+
+.search-container {
+    padding: 1rem;
+    margin-top: 60px;
+    background: rgba(0,0,0,0.8);
+}
+
+.search-box {
+    display: flex;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.search-input {
+    flex: 1;
+    padding: 0.8rem;
+    border: 2px solid var(--primary);
+    border-radius: 5px 0 0 5px;
+    background: rgba(255,255,255,0.1);
+    color: var(--light);
+}
+
+.search-btn {
+    background: var(--primary);
+    color: var(--light);
+    border: none;
+    padding: 0 1.5rem;
+    border-radius: 0 5px 5px 0;
+    cursor: pointer;
+}
+
+@media (max-width: 768px) {
+    .hero h1 {
+        font-size: 2rem !important;
+    }
+    
+    .category-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .trending-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 480px) {
+    .category-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .trending-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+.featured-section {
+    padding: 2rem;
+    background: linear-gradient(rgba(0,0,0,0.9), rgba(0,0,0,0.7));
+}
+
+.featured-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 1.5rem;
+    margin-top: 1rem;
+}
+
+.featured-card {
+    background: rgba(138, 43, 226, 0.1);
+    border-radius: 10px;
+    overflow: hidden;
+    transition: transform 0.3s ease;
+}
+
+.featured-card:hover {
+    transform: translateY(-10px);
+}
+
+.featured-card img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+}
+
+.featured-content {
+    padding: 1rem;
+}
+
+.rating {
+    color: gold;
+    margin-top: 0.5rem;
+}
+
+.admin-trigger {
+    cursor: pointer;
+}
+
+.admin-panel {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.9);
+    z-index: 2000;
+}
+
+.admin-content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: var(--dark);
+    padding: 2rem;
+    border-radius: 10px;
+    border: 2px solid var(--primary);
+    min-width: 300px;
+}
+
+.close-admin {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    background: none;
+    border: none;
+    color: var(--light);
+    font-size: 1.5rem;
+    cursor: pointer;
+}
+
+.admin-login input {
+    width: 100%;
+    padding: 0.5rem;
+    margin: 1rem 0;
+    background: rgba(255,255,255,0.1);
+    border: 1px solid var(--primary);
+    color: var(--light);
+    border-radius: 5px;
+}
+
+.admin-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+.admin-actions button {
+    padding: 0.5rem;
+    background: var(--primary);
+    color: var(--light);
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.hashtags {
+    color: #8A2BE2;
+    font-size: 0.8rem;
+    opacity: 0.8;
+}
+
+.movie-info h3 {
+    margin-bottom: 0.5rem;
+    font-size: 1.1rem;
+}
+</style></head><body>
+    <nav class="navbar">
+        <a href="https://quarkltv.com" class="logo">
+            <svg width="30" height="30" viewBox="0 0 100 100" class="admin-trigger">
+                <circle cx="50" cy="50" r="45" fill="none" stroke="#8A2BE2" stroke-width="8"/>
+                <path d="M30 50 L70 50 M50 30 L50 70" stroke="#8A2BE2" stroke-width="8" class="plus-symbol"/>
+            </svg>
+            QuarkLTV
+        </a>
+    </nav>
+    
+    <div id="adminPanel" class="admin-panel">
+        <div class="admin-content">
+            <button class="close-admin">&times;</button>
+            <h2>Panel de Administración</h2>
+            <div class="admin-login" id="adminLogin">
+                <input type="password" id="adminPassword" placeholder="Ingrese la clave">
+                <button onclick="validateAdmin()">Ingresar</button>
+            </div>
+            <div class="admin-controls" id="adminControls" style="display:none;">
+                <h3>Gestión de Contenido</h3>
+                <div class="admin-actions">
+                    <button onclick="showUploadForm()">Subir Nuevo Contenido</button>
+                    <button onclick="showEditContent()">Editar Contenido</button>
+                    <button onclick="showDeleteContent()">Eliminar Contenido</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="search-container">
+        <div class="search-box">
+            <input type="text" class="search-input" placeholder="Buscar películas, series, anime...">
+            <button class="search-btn">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="11" cy="11" r="8"/>
+                    <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+                </svg>
+            </button>
+        </div>
+    </div>
+
+    <section class="hero">
+        <div>
+            <h1 style="font-size: 3rem; margin-bottom: 1rem;">Bienvenido a QuarkLTV</h1>
+            <p style="font-size: 1.2rem; margin-bottom: 2rem;">Tu nueva plataforma de streaming favorita</p>
+            <button class="btn pulse">Comenzar a ver</button>
+        </div>
+    </section>
+
+    <section class="category-grid">
+        <div class="category-card">
+            <h3>Películas</h3>
+            <p>Las mejores películas de todos los géneros</p>
+        </div>
+        <div class="category-card">
+            <h3>Anime</h3>
+            <p>Los mejores títulos de anime</p>
+        </div>
+        <div class="category-card">
+            <h3>Series</h3>
+            <p>Series exclusivas y populares</p>
+        </div>
+        <div class="category-card">
+            <h3>Documentales</h3>
+            <p>Explora el mundo real</p>
+        </div>
+    </section>
+
+    <section class="featured-section">
+        <h2>Destacados de la Semana</h2>
+        <div class="featured-grid">
+            <div class="featured-card">
+                <img alt="poster de película de acción, escena épica" src="https://images.unsplash.com/photo-1533928298208-27ff66555d8d?auto=format&fit=crop&w=500&h=300" width="250" height="200">
+                <div class="featured-content">
+                    <h3>Exodus</h3>
+                    <p>Ciencia Ficción • 2023</p>
+                    <div class="rating">★★★★☆</div>
+                </div>
+            </div>
+            <div class="featured-card">
+                <img alt="poster de serie dramática, ambiente oscuro" src="https://images.unsplash.com/photo-1626814026160-2237a95fc5a0?auto=format&fit=crop&w=500&h=300" width="250" height="200">
+                <div class="featured-content">
+                    <h3>Dark Matter</h3>
+                    <p>Drama • 2023</p>
+                    <div class="rating">★★★★★</div>
+                </div>
+            </div>
+            <div class="featured-card">
+                <img alt="poster de anime, estilo artístico japonés" src="https://images.unsplash.com/photo-1578632767115-351597cf2477?auto=format&fit=crop&w=500&h=300" width="250" height="200">
+                <div class="featured-content">
+                    <h3>Cyber Ninja</h3>
+                    <p>Anime • 2023</p>
+                    <div class="rating">★★★★☆</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="trending">
+        <h2>Tendencias</h2>
+        <div class="trending-grid">
+            <div class="movie-card">
+                <img alt="Record of Ragnarok anime poster, dramatic fantasy style" src="https://drive.google.com/file/d/10WnwcKvhJGFFF4Ph0OgId1VJ9ffLNiik/preview" width="200" height="300">
+                <div class="movie-info">
+                    <h3>Record of Ragnarok (T1)</h3>
+                    <p class="hashtags">#anime</p>
+                </div>
+            </div>
+            
+            <div class="movie-card">
+                <img alt="Solo Leveling anime poster, action manga style" src="https://drive.google.com/file/d/1DOpLabAG-X3FBjiPruZvPbzQRfonLnWK/preview" width="200" height="300">
+                <div class="movie-info">
+                    <h3>Solo Leveling</h3>
+                    <p class="hashtags">#anime #manwha</p>
+                </div>
+            </div>
+            
+            <div class="movie-card">
+                <img alt="Love is Hard for Otaku anime poster, romantic comedy style" src="https://drive.google.com/file/d/1qpR7DrWP0Tfbgqd588jp6GTlI0VpqBT8/preview" width="200" height="300">
+                <div class="movie-info">
+                    <h3>Love is Hard for Otaku</h3>
+                    <p class="hashtags">#anime</p>
+                </div>
+            </div>
+            
+            <div class="movie-card">
+                <img alt="Hasta el ultimo Hombre movie poster, war drama style" src="https://drive.google.com/file/d/1-3HBimaPKnZlwRv-sG7ZonJTx9WMtigP/preview" width="200" height="300">
+                <div class="movie-info">
+                    <h3>Hasta el ultimo Hombre</h3>
+                    <p class="hashtags">#guerra #soldado</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>© 2023 QuarkLTV - Desarrollado por QCStudios</p>
+        <p>Todos los derechos reservados</p>
+    </footer>
+
+    <script>
+        document.querySelector('.btn').addEventListener('click', () => {
+            alert('¡Bienvenido a QuarkLTV!');
+        });
+
+        document.querySelectorAll('.movie-card').forEach(card => {
+            card.addEventListener('mouseover', () => {
+                card.style.cursor = 'pointer';
+            });
+            card.addEventListener('click', () => {
+                const title = card.querySelector('h3').textContent;
+                alert(`Has seleccionado: ${title}`);
+            });
+        });
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const smoothScroll = (target) => {
+                const element = document.querySelector(target);
+                element.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            };
+        });
+
+        const searchInput = document.querySelector('.search-input');
+        const searchBtn = document.querySelector('.search-btn');
+
+        searchBtn.addEventListener('click', () => {
+            const searchTerm = searchInput.value.trim();
+            if (searchTerm) {
+                alert(`Buscando: ${searchTerm}`);
+            }
+        });
+
+        searchInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                searchBtn.click();
+            }
+        });
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const images = document.querySelectorAll('img');
+            const imageOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px 100px 0px'
+            };
+
+            const imageObserver = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const img = entry.target;
+                        img.src = img.src;
+                        observer.unobserve(img);
+                    }
+                });
+            }, imageOptions);
+
+            images.forEach(img => imageObserver.observe(img));
+        });
+
+        document.querySelectorAll('.featured-card').forEach(card => {
+            card.addEventListener('click', () => {
+                const title = card.querySelector('h3').textContent;
+                const rating = card.querySelector('.rating').textContent;
+                alert(`${title}\nCalificación: ${rating}`);
+            });
+        });
+
+        const adminPanel = document.getElementById('adminPanel');
+        const adminTrigger = document.querySelector('.admin-trigger');
+        const closeAdmin = document.querySelector('.close-admin');
+        const ADMIN_PASSWORD = '198272992';
+
+        adminTrigger.addEventListener('click', (e) => {
+            e.preventDefault();
+            adminPanel.style.display = 'block';
+        });
+
+        closeAdmin.addEventListener('click', () => {
+            adminPanel.style.display = 'none';
+        });
+
+        function validateAdmin() {
+            const password = document.getElementById('adminPassword').value;
+            if (password === ADMIN_PASSWORD) {
+                document.getElementById('adminLogin').style.display = 'none';
+                document.getElementById('adminControls').style.display = 'block';
+            } else {
+                alert('Clave incorrecta');
+            }
+        }
+
+        function showUploadForm() {
+            alert('Función de subida en desarrollo');
+        }
+
+        function showEditContent() {
+            alert('Función de edición en desarrollo');
+        }
+
+        function showDeleteContent() {
+            alert('Función de eliminación en desarrollo');
+        }
+
+        window.addEventListener('click', (e) => {
+            if (e.target === adminPanel) {
+                adminPanel.style.display = 'none';
+            }
+        });
+    </script>
+</body></html>
